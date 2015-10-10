@@ -1,4 +1,5 @@
 cache/
 vendor/
+config/*.local.php
 logs/*.log
 *.lock
