@@ -1,3 +1,4 @@
 cache/
 vendor/
+logs/*.log
 *.lock
