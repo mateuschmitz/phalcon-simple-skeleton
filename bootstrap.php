@@ -48,6 +48,11 @@ class Bootstrap
 
     private static function configureApplication(Config $settings)
     {
+        // set php config
+        foreach ($settings->php_config as $function => $param) {
+            self::configurePHP($function, $param);
+        }
+
         $di = new FactoryDefault();
 
         // set services
@@ -69,6 +74,17 @@ class Bootstrap
         }
        
         return $di;
+    }
+
+    private static function configurePHP($function, $params)
+    {
+        if (!$params instanceof \Phalcon\Config) {
+            return $function($params);
+        }
+
+        foreach ($params as $param) {
+            self::configurePHP($function, $param);
+        }
     }
 
     public static function startApplication($env = null)

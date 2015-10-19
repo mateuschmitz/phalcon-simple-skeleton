@@ -25,8 +25,6 @@ $api = new RouterGroup(
     )
 );
 
-// $api->setPrefix('/');
-
 $api->add('/')->via(array('GET'));
 $api->add('/:controller', array('controller' => 1))->via(array('GET'));
 $api->add('/:controller/:action', array(

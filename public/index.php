@@ -17,7 +17,6 @@ require('bootstrap.php');
 
 try {
     Bootstrap::startApplication();
-    // var_dump(Bootstrap::getConfig());
 } catch (\Exception $e) {
     echo "PhalconException: ", $e->getMessage();
 }

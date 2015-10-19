@@ -15,6 +15,13 @@ class IndexController
 {
     public function indexAction()
     {
-        echo 'Skeleton Phalcon';
+        // echo 'Skeleton Phalcon ';
+        // echo date('d/m/Y H:i:s') . " ";
+        // echo "<pre>" . print_r(getallheaders(), 1);
+        // exit;
+    }
+
+    public function aboutAction()
+    {
     }
 }
