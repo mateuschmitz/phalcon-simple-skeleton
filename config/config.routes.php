@@ -17,32 +17,17 @@ use Phalcon\Mvc\Router\Group as RouterGroup;
 $router = new Router();
 $router->removeExtraSlashes(true);
 
-$api = new RouterGroup(
+$router->setDefaults(
     array(
-        'namespace'  => 'Application\\Controller',
+        'namespace'  => 'Application\Controller',
         'controller' => 'index',
         'action'     => 'index'
     )
 );
 
-$api->add('/')->via(array('GET'));
-$api->add('/:controller', array('controller' => 1))->via(array('GET'));
-$api->add('/:controller/:action', array(
-        'controller' => 1,
-        'action'     => 2
-    )
-)->via(array('GET'));
-$api->add('/:controller/:int', array(
-        'controller' => 1,
-        'id'         => 2
-    )
-)->via(array('GET'));
-$api->add('/:controller/:int/:action', array(
-        'controller' => 1,
-        'action'     => 3,
-        'id'         => 2
-    )
-)->via(array('GET'));
+$router->add('/')->via(array('GET'));
+$router->add('/:controller', array('controller' => 1))->via(array('GET'));
+$router->add('/:controller/:action', array('controller' => 1, 'action' => 2))->via(array('GET'));
+$router->add('/:action', array('action' => 1))->via(array('GET'));
 
-$router->mount($api);
 return $router;

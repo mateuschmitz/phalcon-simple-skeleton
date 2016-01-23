@@ -1,6 +1,7 @@
 cache/
 vendor/
 .vagrant/
+node_modules/
 config/*.local.php
 logs/*.log
 *.lock

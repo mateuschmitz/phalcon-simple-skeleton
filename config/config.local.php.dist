@@ -11,6 +11,8 @@
 
 namespace Config;
 
+use PDO;
+
 return array(
     'databases' => array(
         'akademic' => array(

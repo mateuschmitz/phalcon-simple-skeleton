@@ -8,6 +8,7 @@
  * @package Bootstrap
  * @version alpha
  */
+namespace Bootstrap;
 
 use Phalcon\Mvc\Application,
     Phalcon\DI\FactoryDefault,
@@ -21,7 +22,7 @@ class Bootstrap
         return (is_readable($path . DS . $filename . '.php')) ? require($path . DS . $filename . '.php') : null;
     }
 
-    private static function getConfig($env = null)
+    public static function getConfig($env = null)
     {
         $env = (is_null($env)) ? self::getEnv() : $env;
 
@@ -85,6 +86,12 @@ class Bootstrap
         foreach ($params as $param) {
             self::configurePHP($function, $param);
         }
+    }
+
+    public static function log($content)
+    {
+        $file = fopen('./logs/log_file_custom.log', 'a+');
+        fwrite($file, date('Y-m-d H:i:s') . "\t" . memory_get_peak_usage(true) .  "\t{$content}\n");
     }
 
     public static function startApplication($env = null)

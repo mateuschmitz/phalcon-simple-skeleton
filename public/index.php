@@ -5,7 +5,7 @@
  * 
  * @author  Mateus Schmitz <matteuschmitz@gmail.com>
  * @license MIT License
- * @package Application
+ * @package Bootstrap
  * @version alpha
  */
 
@@ -16,7 +16,7 @@ define('DS', DIRECTORY_SEPARATOR);
 require('bootstrap.php');
 
 try {
-    Bootstrap::startApplication();
+    Bootstrap\Bootstrap::startApplication();
 } catch (\Exception $e) {
     echo "PhalconException: ", $e->getMessage();
 }
