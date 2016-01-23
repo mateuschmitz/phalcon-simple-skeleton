@@ -5,7 +5,7 @@
  * 
  * @author  Mateus Schmitz <matteuschmitz@gmail.com>
  * @license MIT License
- * @package Controller
+ * @package Application\Controller
  * @version alpha
  */
 
