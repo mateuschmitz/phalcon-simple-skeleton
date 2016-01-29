@@ -14,9 +14,10 @@ chdir(dirname(__DIR__));
 define('DS', DIRECTORY_SEPARATOR);
 
 require('bootstrap.php');
+require('./vendor/autoload.php');
 
-try {
-    Bootstrap\Bootstrap::startApplication();
-} catch (\Exception $e) {
-    echo "PhalconException: ", $e->getMessage();
-}
+$whoops = new Whoops\Run();
+$whoops->pushHandler(new Whoops\Handler\PrettyPageHandler());
+$whoops->register();
+
+Bootstrap\Bootstrap::startApplication();
