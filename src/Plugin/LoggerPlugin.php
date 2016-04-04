@@ -60,7 +60,9 @@ class LoggerPlugin extends Plugin
 
         $message = "{$request->getClientAddress()}";
         $message .= (!empty($_COOKIE['PHPSESSID'])) ? " | {$_COOKIE['PHPSESSID']}": " | ~" ;
-        $message .= " | {$request->getMethod()} {$url} {$request->getServer('SERVER_PROTOCOL')}";
+        $message .= " | {$request->getMethod()} | {$url} {$request->getServer('SERVER_PROTOCOL')}";
+        $message .= ($request->getMethod() === 'POST') ? ' | (POSTDATA: ' . json_encode($request->getPost()) . ')' : '';
+        $message .= ($request->getMethod() === 'PUT') ? ' | (PUTDATA: ' . json_encode($request->getPut()) . ')' : '';
         $message .= " | UA {$request->getUserAgent()}";
 
         $logger = new FileAdapter("./logs/" . date('Ymd') . ".log");
