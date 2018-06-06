@@ -20,7 +20,7 @@ use PDO,
     Phalcon\Mvc\View\Engine\Volt,
     Application\Plugin\LoggerPlugin;
 
-defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../..'));
+defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../'));
 
 return array(
     'php_config'       => array(
