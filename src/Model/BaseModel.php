@@ -38,44 +38,4 @@ class BaseModel extends \Phalcon\Mvc\Model
         return $manager->get();
     }
 
-    /**
-     * Acts as setters and getters for all properties.
-     * 
-     * @param string $name Function name: setSomething or getSomething.
-     * @param array $arguments The position 0 of this array will be used as value to setSomething.
-     * @return mixed
-     */
-    public function __call($name, $arguments = null)
-    {
-        $class = get_called_class();
-        $action = substr($name, 0, 3);
-
-        switch ($action) {
-            case 'get':
-                $property = substr($name, 3);
-
-                if (property_exists($class, $property)) {
-                    return $this->{$property};
-                }
-
-                $property[0] = strtolower($property[0]);
-                if (!property_exists($class, $property)) {
-                    return parent::__call($name, $arguments);
-                }
-
-                return $this->{$property};
-
-            case 'set':
-                $property = substr($name, 3);
-                $property[0] = strtolower($property[0]);
-                if (!property_exists($class, $property)) {
-                    return parent::__call($name, $arguments);
-                }
-                $this->{$property} = $arguments[0];
-                return $this;
-
-            default:
-                return parent::__call($name, $arguments);
-        }
-    }
 }
