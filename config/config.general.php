@@ -15,6 +15,7 @@ use PDO,
     Phalcon\Mvc\View,
     Phalcon\Events\Manager,
     Phalcon\Mvc\Dispatcher,
+    Phalcon\Flash\Session as FlashSession,
     Application\Plugin\LoggerPlugin;
 
 return array(
@@ -42,6 +43,11 @@ return array(
             
             return $view;
 		},
+        'session' => function(){
+		    $session = new \Phalcon\Session\Adapter\Files();
+		    $session->start();
+		    return $session;
+        },
         'flashSession' => function() {
             $flash = new FlashSession(
                 array(
@@ -51,6 +57,9 @@ return array(
                     'warning' => 'alert alert-warning'
                 )
             );
+
+            $flash->setAutoescape(false);
+
             return $flash;
         },
 		'router' => function () {

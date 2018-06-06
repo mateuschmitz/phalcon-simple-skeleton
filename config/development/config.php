@@ -12,6 +12,9 @@
 namespace Config;
 
 return array(
+    'php_config'       => array(
+        'error_reporting' => E_ALL
+    ),
     // 'databases' => array(
     //     'db' => array(
     //         "adapter"  => "Phalcon\Db\Adapter\Pdo\Mysql", // optional if MySQL Adapter
