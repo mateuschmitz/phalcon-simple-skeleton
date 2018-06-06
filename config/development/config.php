@@ -11,6 +11,8 @@
 
 namespace Config;
 
+defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../..'));
+
 return array(
     'php_config'       => array(
         'error_reporting' => E_ALL

@@ -16,6 +16,8 @@ use PDO,
     Phalcon\Events\Manager,
     Phalcon\Mvc\Dispatcher,
     Phalcon\Flash\Session as FlashSession,
+    Phalcon\Mvc\View\Engine\Php as PhpEngine,
+    Phalcon\Mvc\View\Engine\Volt,
     Application\Plugin\LoggerPlugin;
 
 return array(
@@ -40,7 +42,21 @@ return array(
             $view->setLayoutsDir('../layout/');
             $view->setPartialsDir('../partial/');
             $view->setLayout('default');
-            
+
+            $view->registerEngines([
+                '.volt' => function ($view) {
+                    $volt = new Volt($view, $this);
+
+                    $volt->setOptions([
+                        'compiledPath' => BASE_PATH . '/cache/',
+                        'compiledSeparator' => '_'
+                    ]);
+
+                    return $volt;
+                },
+                '.phtml' => PhpEngine::class
+            ]);
+
             return $view;
 		},
         'session' => function(){
