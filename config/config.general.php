@@ -17,8 +17,7 @@ use PDO,
     Phalcon\Mvc\Dispatcher,
     Phalcon\Flash\Session as FlashSession,
     Phalcon\Mvc\View\Engine\Php as PhpEngine,
-    Phalcon\Mvc\View\Engine\Volt,
-    Application\Plugin\LoggerPlugin;
+    Phalcon\Mvc\View\Engine\Volt;
 
 defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../'));
 
@@ -85,7 +84,6 @@ return array(
 		},
         'dispatcher' => function() {
             $eventsManager = new Manager();
-            $eventsManager->attach('dispatch', new LoggerPlugin());
             $dispatcher = new Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
             return $dispatcher;
