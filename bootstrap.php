@@ -44,7 +44,19 @@ class Bootstrap
 
     private static function getEnv()
     {
-        return (isset($_SERVER['APPLICATION_ENV'])) ? $_SERVER['APPLICATION_ENV'] : 'production';
+        if (getenv('APPLICATION_ENV')) {
+            return getenv('APPLICATION_ENV');
+        }
+
+        if (isset($_SERVER['APPLICATION_ENV'])) {
+            return $_SERVER['APPLICATION_ENV'];
+        }
+
+        if (file_exists("APPLICATION_ENV")) {
+            return trim(file_get_contents("APPLICATION_ENV"));
+        }
+
+        return 'production';
     }
 
     private static function configureApplication(Config $settings)

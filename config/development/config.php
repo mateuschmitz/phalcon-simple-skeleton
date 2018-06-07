@@ -12,6 +12,9 @@
 namespace Config;
 
 return array(
+    'php_config'       => array(
+        'error_reporting' => E_ALL
+    ),
     // 'databases' => array(
     //     'db' => array(
     //         "adapter"  => "Phalcon\Db\Adapter\Pdo\Mysql", // optional if MySQL Adapter
@@ -20,7 +23,7 @@ return array(
     //         "password" => "PASSWORD",
     //         "dbname"   => "DBNAME",
     //         "options"  => array(
-    //             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"
+    //             \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"
     //         )
     //     )
     // ),

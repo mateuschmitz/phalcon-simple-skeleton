@@ -1,0 +1,23 @@
+version: '2'
+services:
+  web:
+   image: mallmann/lnp:7.2
+   volumes:
+    - .:/app/
+    - ./webserver.conf:/etc/nginx/conf.d/default.conf
+   ports:
+    - 80:80
+   container_name: webserver
+   environment:
+    - APPLICATION_ENV=development
+  mysql:
+   image: mysql
+   container_name: mysqlserver
+   environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_DATABASE=app
+
+networks:
+  default:
+    external:
+      name: myddn

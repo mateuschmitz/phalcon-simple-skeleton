@@ -15,7 +15,11 @@ use PDO,
     Phalcon\Mvc\View,
     Phalcon\Events\Manager,
     Phalcon\Mvc\Dispatcher,
-    Application\Plugin\LoggerPlugin;
+    Phalcon\Flash\Session as FlashSession,
+    Phalcon\Mvc\View\Engine\Php as PhpEngine,
+    Phalcon\Mvc\View\Engine\Volt;
+
+defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../'));
 
 return array(
     'php_config'       => array(
@@ -39,9 +43,28 @@ return array(
             $view->setLayoutsDir('../layout/');
             $view->setPartialsDir('../partial/');
             $view->setLayout('default');
-            
+
+            $view->registerEngines([
+                '.volt' => function ($view) {
+                    $volt = new Volt($view, $this);
+
+                    $volt->setOptions([
+                        'compiledPath' => BASE_PATH . '/cache/',
+                        'compiledSeparator' => '_'
+                    ]);
+
+                    return $volt;
+                },
+                '.phtml' => PhpEngine::class
+            ]);
+
             return $view;
 		},
+        'session' => function(){
+		    $session = new \Phalcon\Session\Adapter\Files();
+		    $session->start();
+		    return $session;
+        },
         'flashSession' => function() {
             $flash = new FlashSession(
                 array(
@@ -51,6 +74,9 @@ return array(
                     'warning' => 'alert alert-warning'
                 )
             );
+
+            $flash->setAutoescape(false);
+
             return $flash;
         },
 		'router' => function () {
@@ -58,7 +84,6 @@ return array(
 		},
         'dispatcher' => function() {
             $eventsManager = new Manager();
-            $eventsManager->attach('dispatch', new LoggerPlugin());
             $dispatcher = new Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
             return $dispatcher;
