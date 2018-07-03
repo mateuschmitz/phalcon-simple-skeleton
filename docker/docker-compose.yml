@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  web:
+    build:
+      context: ./nginx
+    hostname: local.phalconsimpleskeleton.com
+    volumes:
+      - ../:/var/www
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+    depends_on:
+      - php
+    ports:
+      - "80:80"
+      - "443:443"
+
+  php:
+    build:
+      context: ./phalcon-php
+    working_dir: /var/www
+    user: 1000:1000
+    volumes:
+      - ../:/var/www
+
+  database:
+    build:
+      context: ./database
+    environment:
+      - MYSQL_DATABASE=mydb
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=docker
